@@ -1,0 +1,118 @@
+<!-- 
+    Author: Caroline Hoang
+    A Sales Logging List with Dynamic Div Generation and Autocomplete JS (Now with a Flask Server) 
+    [A UI Design Class Assignment]
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Columbia Paper Sales Logging</title>
+
+        <!-- jquery -->
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 	 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"> 
+
+
+        <!-- import the static js file -->
+        <script  type="text/javascript" src="{{ url_for('static', filename = 'cu-paperinfinity.js') }}" ></script>
+
+        <!-- variables being passed for get requests -->
+        <script>
+            var sales = {{sales|tojson}};
+            var clients = {{clients|tojson}};
+        </script>
+
+        <style> 
+            body{
+                font-size: 1rem;
+            }
+            .header{
+                width: 100%;
+                height: 100%;
+                background-color: lightgrey;
+                font-size: 2.5rem;
+                padding: 8vh 0 8vh 5vw;
+                font-weight: bold;
+            }
+            .entry-row{
+                margin-top: 1vh;
+            }
+            .delete-button{
+                height: 3vw;
+                width: 3vw;
+                border-radius: .3rem;
+                background-color: rgb(255, 208, 0);
+            }
+            .input-style{
+                width: 100%
+            }
+            .hide-warning{
+                display: none;
+            }
+            .show-warning{
+                color: hotpink;
+                font-size: .8rem;
+            }
+            .starting-column{
+                padding-left: 0 !important;
+                margin-left:  0 !important;
+            }
+            #form-fields{
+                overflow-wrap: break-word;
+                hyphens: auto;
+                margin-top: 5vh;
+            }
+            #add-entry{
+                padding: .3rem;
+                border-radius: .3rem;
+                background-color: rgb(0, 98, 255);
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="header col-md-12" >
+                    Columbia Paper Infinity 
+                </div>
+            </div>
+
+            <div id="form-fields" class="row">
+                <div class="col-md-3 starting-column" > 
+                    Log your paper sales:
+                </div>
+                <div class="col-md-4" > 
+                    <input id="client-input" class="client-field input-style" placeholder="Client" >
+                    <div id="name-warning" class="hide-warning">* name field cannot be empty</div>
+                    <div id="space-warning" class="hide-warning">* input cannot contain only spaces</div>
+                </div>
+                <div class="col-md-2" > 
+                    <input id="reams-input" class="reams-field input-style" placeholder="# Reams" > 
+                    <div id="reams-warning" class="hide-warning">* no. of reams cannot be empty</div>
+                    <div id="int-warning" class="hide-warning">* please input an integer value</div>
+                </div>
+                <div class="col-md-3"> 
+                    <button id="add-entry">Submit</button>
+                </div>
+            </div>
+
+            <div id="form-fields" class="row">
+                <div id="entries" class="col-md-12"> 
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

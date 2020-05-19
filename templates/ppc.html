@@ -1,0 +1,109 @@
+<!-- 
+    Author: Caroline Hoang
+    Two Lists that have Drag and Drop functionality between them: The Office Edition
+    This version has a Flask Server to save changes
+    [A UI Design Class Assignment]
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Party Planning Committee</title>
+
+        <!-- jquery -->
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script> 	 
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"> 
+
+        <!-- import the static js file -->
+        <script  type="text/javascript" src="{{ url_for('static', filename = 'ppc.js') }}" ></script>
+        
+        <!-- variables being passed for get requests -->
+        <script>
+            var nPPC_data = {{nPPC_data|tojson}};
+            var PPC_data = {{PPC_data|tojson}};
+        </script>
+
+        <style>
+            /* ---------- styles for the objects on this HTML doc ---------- */
+            body{
+                font-size: 1rem;
+            }
+            .header{
+                width: 100%;
+                height: 100%;
+                background-color: lightgrey;
+                font-size: 2.7rem;
+                padding: 8vh 0 8vh 5vw;
+                margin-bottom: 6vh;
+                font-weight: bold;
+
+            }
+            .starting-column{
+                padding-left: 0 !important; /*the important wasnt needed, but I added it as a precaution */
+                margin-left:  0 !important; /*the important wasnt needed, but I added it as a precaution */
+            }
+            .list-container{
+                background-color: rgb(240, 240, 240);
+                border: solid lightgrey .1rem;
+            }
+            .target{
+                padding: 3vh 0 3vh 0;
+                font-size: 1.2rem;
+                background-color: rgb(82, 200, 255);
+                text-align: center;
+                font-weight: bold;
+            }
+            /* ---------- styles not called on this page but will be applied dynamically via js ---------- */
+            .names{
+                border: solid lightgrey .1rem;
+                background-color: white;
+            }
+            .names:hover{
+                background-color: rgb(255, 255, 126); /*make it highlight light yellow */
+                cursor: move; /* to make the curser turn into "move" on hover */
+            };
+            /* styles to apply based on draggable */
+            .names.ui-draggable-dragging{
+                background-color: lightyellow;
+            }
+            /* styles to apply based on droppable */
+            .targeting{
+                background-color: rgb(58, 110, 255);
+            }
+            .targeted{
+                background-color: rgb(3, 0, 204);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="header col-md-12" >
+                    Party Planning Committee
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 starting-column ">
+                    <div class="list-container">
+                        <div id="non-ppc-list-target" class="target"> Non-PPC </div>
+                        <div id="non-ppc-list"></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="list-container">
+                        <div id="ppc-list-target" class="target"> PPC </div>
+                        <div id="ppc-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
